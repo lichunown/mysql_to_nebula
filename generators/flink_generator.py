@@ -23,9 +23,8 @@ class FlinkGenerator(object):
         for column in self.mysql_creator.columns:
             if column.type == 'FieldColumn':
                 field_res.append(_create_field_column_sql(column))
-            if column.type == 'IndexColumn':
-                if column.is_primary_key:
-                    field_res.append(f'\tPRIMARY KEY ({column.index_fields[0]}) NOT ENFORCED')
+            if column.type == 'PrimaryKeyColumn':
+                field_res.append(f'\tPRIMARY KEY ({column.name}) NOT ENFORCED')
         field_res = ', \n'.join(field_res)
 
         with_context = self._with_context.copy()

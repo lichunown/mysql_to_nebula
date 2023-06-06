@@ -15,6 +15,8 @@ class Column(object):
     def auto_column(cols: List[sqlparse.sql.Token]):
         if cols[0].ttype == sqlparse.tokens.Name:
             return FieldColumn(cols)
+        elif cols[0].normalized == 'PRIMARY':
+            return PrimaryKeyColumn(cols)
         else:
             return IndexColumn(cols)
 
@@ -93,6 +95,20 @@ class FieldColumn(Column):
         return f'{self.name} {self.ftype}'
 
 
+class PrimaryKeyColumn(Column):
+    def _check_cols(self):
+        assert len(self.cols) > 2, f'The col: {self.cols} have less than 2 item.' \
+                                   f'but it is {self.cols}'
+        assert self.cols[0].normalized == 'PRIMARY' and \
+            self.cols[1].normalized == 'KEY'
+
+    @property
+    def name(self):
+        if self.cols[2].ttype == sqlparse.tokens.Name:
+            return self.cols[2].value
+        raise ValueError(f'cannot identify the tokens: {self.cols}')
+
+
 class IndexColumn(Column):
     """
     examples:
@@ -114,23 +130,40 @@ class IndexColumn(Column):
                                    f'but it is {self.cols}'
         assert self.cols[0].ttype == sqlparse.tokens.Keyword, f'The col[0] must be `PRIMARY KEY` or `UNIQUE INDEX`, ' \
                                                               f'but it is {self.cols}'
-    @property
-    def name(self):
-        return self.index_fields[0]
 
     @property
-    def is_primary_key(self):
-        return self.cols[0].normalized == 'PRIMARY' and \
-            self.cols[1].normalized == 'KEY'
+    def name(self):
+        _start = False
+        for token in self.cols:
+            if token.ttype == sqlparse.tokens.Keyword:
+                if _start:
+                    break
+            elif token.ttype == sqlparse.tokens.Name:
+                _start = True
+                return token.value
+
+    @property
+    def is_unique(self):
+        for token in self.cols:
+            if token.ttype == sqlparse.tokens.Keyword:
+                if token.normalized == 'UNIQUE':
+                    return True
+            else:
+                break
+        return False
 
     @property
     def index_fields(self):
         res = []
-        for token in self.cols[2:]:
-            if token.ttype == sqlparse.tokens.Name:
-                res.append(token.value)
+        _start = False
+        for token in self.cols:
             if token.ttype == sqlparse.tokens.Keyword:
-                return res
+                if _start:
+                    break
+            elif token.ttype == sqlparse.tokens.Name:
+                if _start:
+                    res.append(token.value)
+                _start = True
         return res
 
     def __repr__(self):
