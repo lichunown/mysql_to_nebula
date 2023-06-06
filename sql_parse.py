@@ -6,7 +6,7 @@ import os
 import sqlparse.sql as parse_sql
 
 from utils.util import IterWrapper, clean_name
-from sql_type import auto_ftype
+from sql_type import auto_ftype, NumberFieldType
 
 
 class Column(object):
@@ -56,14 +56,18 @@ class FieldColumn(Column):
 
     @property
     def ftype_num(self):
-        if self.cols[2].ttype == sqlparse.tokens.Literal.Number.Integer:
-            return int(self.cols[2].value)
-        return None
+        res = []
+        for token in self.cols[2:]:
+            if token.ttype == sqlparse.tokens.Literal.Number.Integer:
+                res.append(token.value)
+            else:
+                break
+        return res
 
     @property
     def ftype(self):
         # print(self.cols, self.cols[0].value)
-        return auto_ftype(self.cols[1].value, self.ftype_num)
+        return auto_ftype(self.cols[1].value, *self.ftype_num)
 
     @property
     def is_not_null(self):
@@ -81,6 +85,8 @@ class FieldColumn(Column):
                     res = self.cols[i + 1].normalized
                     if res == 'NULL':
                         return default
+                    if isinstance(self.ftype, NumberFieldType):
+                        res = self.ftype.apply(res)
                     return res
         return default
 

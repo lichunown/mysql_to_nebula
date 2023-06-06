@@ -74,10 +74,10 @@ CREATE TABLE IF NOT EXISTS t_region_mysql(
 	`region_name` VARCHAR(320) DEFAULT NULL COMMENT '地址名称', 
 	`region_type` TINYINT DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', 
 	`full_address` VARCHAR(2000) DEFAULT NULL COMMENT '地址全层次名称', 
-	`leaf` TINYINT DEFAULT '0' COMMENT '是否叶子节点 0否 1是', 
+	`leaf` TINYINT DEFAULT 0 COMMENT '是否叶子节点 0否 1是', 
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', 
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', 
-	`del_stat` TINYINT DEFAULT '0' COMMENT '0：正常 1：删除', 
+	`del_stat` TINYINT DEFAULT 0 COMMENT '0：正常 1：删除', 
 	`version_no` INTEGER DEFAULT NULL COMMENT '', 
 	PRIMARY KEY (`id`) NOT ENFORCED 
  ) WITH ( 
@@ -102,10 +102,10 @@ CREATE TABLE IF NOT EXISTS t_region_nebula(
 	`region_name` VARCHAR(320) DEFAULT NULL COMMENT '地址名称', 
 	`region_type` TINYINT DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', 
 	`full_address` VARCHAR(2000) DEFAULT NULL COMMENT '地址全层次名称', 
-	`leaf` TINYINT DEFAULT '0' COMMENT '是否叶子节点 0否 1是', 
+	`leaf` TINYINT DEFAULT 0 COMMENT '是否叶子节点 0否 1是', 
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', 
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', 
-	`del_stat` TINYINT DEFAULT '0' COMMENT '0：正常 1：删除', 
+	`del_stat` TINYINT DEFAULT 0 COMMENT '0：正常 1：删除', 
 	`version_no` INTEGER DEFAULT NULL COMMENT '' 
  ) WITH ( 
 	'connector' = 'nebula', 
@@ -217,10 +217,10 @@ CREATE TABLE IF NOT EXISTS t_region_mysql(
 	`region_name` VARCHAR(320) DEFAULT NULL COMMENT '地址名称', 
 	`region_type` TINYINT DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', 
 	`full_address` VARCHAR(2000) DEFAULT NULL COMMENT '地址全层次名称', 
-	`leaf` TINYINT DEFAULT '0' COMMENT '是否叶子节点 0否 1是', 
+	`leaf` TINYINT DEFAULT 0 COMMENT '是否叶子节点 0否 1是', 
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', 
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', 
-	`del_stat` TINYINT DEFAULT '0' COMMENT '0：正常 1：删除', 
+	`del_stat` TINYINT DEFAULT 0 COMMENT '0：正常 1：删除', 
 	`version_no` INTEGER DEFAULT NULL COMMENT '', 
 	PRIMARY KEY (`id`) NOT ENFORCED 
  ) WITH ( 
@@ -247,10 +247,10 @@ CREATE TABLE IF NOT EXISTS t_region_nebula(
 	`region_name` VARCHAR(320) DEFAULT NULL COMMENT '地址名称', 
 	`region_type` TINYINT DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', 
 	`full_address` VARCHAR(2000) DEFAULT NULL COMMENT '地址全层次名称', 
-	`leaf` TINYINT DEFAULT '0' COMMENT '是否叶子节点 0否 1是', 
+	`leaf` TINYINT DEFAULT 0 COMMENT '是否叶子节点 0否 1是', 
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', 
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', 
-	`del_stat` TINYINT DEFAULT '0' COMMENT '0：正常 1：删除', 
+	`del_stat` TINYINT DEFAULT 0 COMMENT '0：正常 1：删除', 
 	`version_no` INTEGER DEFAULT NULL COMMENT '' 
  ) WITH ( 
 	'connector' = 'nebula', 

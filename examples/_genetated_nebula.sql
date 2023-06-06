@@ -34,10 +34,10 @@ CREATE TAG IF NOT EXISTS region(`id` INT32 NOT NULL COMMENT '主键', \
 	`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT '地址名称', \
 	`region_type` INT16 DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', \
 	`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT '地址全层次名称', \
-	`leaf` INT16 DEFAULT '0' COMMENT '是否叶子节点 0否 1是', \
+	`leaf` INT16 DEFAULT 0 COMMENT '是否叶子节点 0否 1是', \
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', \
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', \
-	`del_stat` INT16 DEFAULT '0' COMMENT '0：正常 1：删除', \
+	`del_stat` INT16 DEFAULT 0 COMMENT '0：正常 1：删除', \
 	`version_no` INT32 DEFAULT NULL COMMENT '') \
 COMMENT='行政区域表'; 
 CREATE TAG INDEX IF NOT EXISTS `t_region_address_id_IDX` ON region(`region_id`);
@@ -86,10 +86,10 @@ CREATE EDGE IF NOT EXISTS region_region_relation(`id` INT32 NOT NULL COMMENT '�
 	`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT '地址名称', \
 	`region_type` INT16 DEFAULT NULL COMMENT '地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户', \
 	`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT '地址全层次名称', \
-	`leaf` INT16 DEFAULT '0' COMMENT '是否叶子节点 0否 1是', \
+	`leaf` INT16 DEFAULT 0 COMMENT '是否叶子节点 0否 1是', \
 	`create_time` TIMESTAMP NOT NULL COMMENT '创建时间', \
 	`modify_time` TIMESTAMP NOT NULL COMMENT '修改时间', \
-	`del_stat` INT16 DEFAULT '0' COMMENT '0：正常 1：删除', \
+	`del_stat` INT16 DEFAULT 0 COMMENT '0：正常 1：删除', \
 	`version_no` INT32 DEFAULT NULL COMMENT '') \
 COMMENT='行政区域表'; 
 CREATE EDGE INDEX IF NOT EXISTS `t_region_address_id_IDX` ON region_region_relation(`region_id`);
