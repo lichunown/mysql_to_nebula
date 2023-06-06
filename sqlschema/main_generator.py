@@ -1,11 +1,10 @@
-import os
 from typing import List
 
-from sql_parse import CreateSqlList
-from generators import FlinkGenerator, NebulaGenerator
-from utils.format import Format
+from sqlschema.sql_parse import CreateSqlList
+from sqlschema.generators import FlinkGenerator, NebulaGenerator
+from sqlschema.utils.format import Format
 
-from utils.util import clean_name
+from sqlschema.utils.util import clean_name
 from dataclasses import dataclass
 
 
@@ -140,7 +139,7 @@ class MainGenerator(object):
 
 
 if __name__ == '__main__':
-    main_generator = MainGenerator.load_mysql_sqls('examples/mysql_schema.sql')
+    main_generator = MainGenerator.load_mysql_sqls('../examples/mysql_schema.sql')
     main_generator.tag_data_type = 'VARCHAR(64)'
 
     main_generator.update_flink_mysql_meta_info({

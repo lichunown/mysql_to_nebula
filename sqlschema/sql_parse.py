@@ -2,11 +2,10 @@ import pprint
 from typing import Union, List
 
 import sqlparse
-import os
 import sqlparse.sql as parse_sql
 
-from utils.util import IterWrapper, clean_name
-from sql_type import auto_ftype, NumberFieldType
+from sqlschema.utils.util import IterWrapper, clean_name
+from sqlschema.sql_type import auto_ftype, NumberFieldType
 
 
 class Column(object):
@@ -308,5 +307,5 @@ class CreateSqlList(object):
 
 
 if __name__ == '__main__':
-    sqls = ''.join(open('examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
+    sqls = ''.join(open('../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
     create_sql_list = CreateSqlList(sqls)

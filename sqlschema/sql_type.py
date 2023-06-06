@@ -1,5 +1,5 @@
 from typing import List, Union
-from utils.util import clean_name
+from sqlschema.utils.util import clean_name
 
 
 _type_class_map = {}

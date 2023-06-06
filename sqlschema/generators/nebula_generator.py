@@ -1,5 +1,5 @@
-from utils.util import clean_name
-from sql_parse import CreateSql
+from sqlschema.utils.util import clean_name
+from sqlschema.sql_parse import CreateSql
 
 
 def _create_field_column_sql(column):
@@ -54,8 +54,8 @@ class NebulaGenerator(object):
 
 
 if __name__ == '__main__':
-    sqls = ''.join(open('../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
-    from sql_parse import CreateSqlList
+    sqls = ''.join(open('../../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
+    from sqlschema.sql_parse import CreateSqlList
     create_sql_list = CreateSqlList(sqls)
     nebula_generator = NebulaGenerator(create_sql_list[0])
 
