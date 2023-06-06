@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS t_user_info_nebula(
 	'graph-address' = '127.0.0.1:9669', 
 	'username' = 'root', 
 	'password' = 'nebula', 
-	'graph-space' = 'jmt', 
+	'graph-space' = 'jmt2', 
 	'data-type' = 'vertex', 
 	'label-name' = 'user' 
  ); 
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS t_region_nebula(
 	'graph-address' = '127.0.0.1:9669', 
 	'username' = 'root', 
 	'password' = 'nebula', 
-	'graph-space' = 'jmt', 
+	'graph-space' = 'jmt2', 
 	'data-type' = 'vertex', 
 	'label-name' = 'region' 
  ); 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS t_user_region_nebula(
 	'graph-address' = '127.0.0.1:9669', 
 	'username' = 'root', 
 	'password' = 'nebula', 
-	'graph-space' = 'jmt', 
+	'graph-space' = 'jmt2', 
 	'data-type' = 'edge', 
 	'src-id-index' = '0', 
 	'dst-id-index' = '1', 
@@ -258,7 +258,7 @@ CREATE TABLE IF NOT EXISTS t_region_nebula(
 	'graph-address' = '127.0.0.1:9669', 
 	'username' = 'root', 
 	'password' = 'nebula', 
-	'graph-space' = 'jmt', 
+	'graph-space' = 'jmt2', 
 	'data-type' = 'edge', 
 	'src-id-index' = '0', 
 	'dst-id-index' = '1', 
@@ -328,7 +328,7 @@ CREATE TABLE IF NOT EXISTS t_user_relation_nebula(
 	'graph-address' = '127.0.0.1:9669', 
 	'username' = 'root', 
 	'password' = 'nebula', 
-	'graph-space' = 'jmt', 
+	'graph-space' = 'jmt2', 
 	'data-type' = 'edge', 
 	'src-id-index' = '0', 
 	'dst-id-index' = '1', 

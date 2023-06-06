@@ -4,9 +4,9 @@ from sql_parse import CreateSql
 
 def _create_field_column_sql(column):
     if column.is_not_null:
-        return f'{column.name} {column.ftype.nebula} NOT NULL COMMENT {column.comment()}'
+        return f'\t{column.name} {column.ftype.nebula} NOT NULL COMMENT {column.comment()}'
     else:
-        return f'{column.name} {column.ftype.nebula} DEFAULT {column.default} COMMENT {column.comment()}'
+        return f'\t{column.name} {column.ftype.nebula} DEFAULT {column.default} COMMENT {column.comment()}'
 
 
 def _create_index_column_sql(dtype, column, edge_name):
@@ -32,7 +32,7 @@ class NebulaGenerator(object):
         field_res = ', \\ \n'.join(field_res)
         index_res = '\n'.join(index_res)
 
-        return f"CREATE EDGE IF NOT EXISTS {edge_name}({field_res}) \\ \n" \
+        return f"CREATE EDGE IF NOT EXISTS {edge_name}(\n{field_res}) \\ \n" \
                f"COMMENT={self.mysql_creator.comment()}; \n" + index_res
 
     def create_tag(self, tag_name, node_field):
@@ -50,7 +50,7 @@ class NebulaGenerator(object):
         field_res = ', \\ \n'.join(field_res)
         index_res = '\n'.join(index_res)
 
-        return f"CREATE TAG IF NOT EXISTS {tag_name}({field_res}) \\ \n" \
+        return f"CREATE TAG IF NOT EXISTS {tag_name}(\n{field_res}) \\ \n" \
                f"COMMENT={self.mysql_creator.comment()}; \n" + index_res
 
 

@@ -74,6 +74,13 @@ class MainGenerator(object):
                                    node2_field_name, nebula_edge_name))
         return self
 
+    def create_nebula_space_sql(self, name, vid_type='FIXED_STRING(64)',
+                                partition_num=120, replica_factor=1):
+        res = [f'CREATE SPACE {name} (partition_num={partition_num}, '
+               f'replica_factor={replica_factor}, vid_type={vid_type});',
+               f'use {name};']
+        return Format(res)
+
     def create_nebula_sql(self):
         res = []
         for node in self.nodes:
@@ -149,7 +156,7 @@ if __name__ == '__main__':
         'graph-address': '127.0.0.1:9669',
         'username': 'root',
         'password': 'nebula',
-        'graph-space': 'jmt',
+        'graph-space': 'jmt2',
     })\
         .define_tag('t_user_info', 'user_id', 'user')\
         .define_tag('t_region', 'region_id', 'region')\
@@ -160,7 +167,8 @@ if __name__ == '__main__':
         .define_edge('t_user_relation', 'user_id', 'related_user_id',
                      'user_user_relation')
 
-    main_generator.create_nebula_sql().save('./examples/_genetated_nebula.sql')
+    main_generator.create_nebula_space_sql('jmt2').save('./examples/_genetated_nebula.sql')
+    main_generator.create_nebula_sql().add_to('./examples/_genetated_nebula.sql')
     main_generator.create_flink_sql().save('./examples/_genetated_flink.sql')
 
 

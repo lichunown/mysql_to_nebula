@@ -17,5 +17,10 @@ class Format(object):
         with open(path, 'w', encoding='utf8') as f:
             f.write(split.join(self.data))
 
+    def add_to(self, path, split='\n\n\n'):
+        with open(path, 'a', encoding='utf8') as f:
+            f.write(split)
+            f.write(split.join(self.data))
+
     def __repr__(self):
         return self.data
