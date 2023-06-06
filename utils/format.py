@@ -14,7 +14,7 @@ class Format(object):
         print(split.join(self.data))
 
     def save(self, path, split='\n\n\n'):
-        with open(path, 'w') as f:
+        with open(path, 'w', encoding='utf8') as f:
             f.write(split.join(self.data))
 
     def __repr__(self):

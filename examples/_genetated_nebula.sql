@@ -1,39 +1,39 @@
-CREATE TAG IF NOT EXISTS user(`id` INT32 NOT NULL COMMENT 'Ö÷¼ü', \ 
-`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ÓÃ»§ID', \ 
-`auth_flag` INT32 NOT NULL COMMENT 'ÊÇ·ñ×¢²áÈÏÖ¤ 1ÈÏÖ¤£»0·ÇÈÏÖ¤', \ 
-`wx_open_id` FIXED_STRING(32) DEFAULT NULL COMMENT 'Î¢ÐÅopenID', \ 
-`name` FIXED_STRING(100) NOT NULL COMMENT 'ÐÕÃû', \ 
-`sex` INT32 DEFAULT NULL COMMENT 'ÐÔ±ð 0ÄÐ£»1Å®', \ 
-`birthday` DATE DEFAULT NULL COMMENT 'ÉúÈÕ', \ 
-`in_Beijing` INT32 DEFAULT NULL COMMENT 'ÊÇ·ñÔÚ±±¾© 1ÊÇ 0·ñ', \ 
-`status_type` INT32 DEFAULT NULL COMMENT 'ÐÅÏ¢×´Ì¬ 0´ýÌî±¨£»1´ýÈ·ÈÏ(¹ÜÀíÔ±)£»2´ýÈ·ÈÏ(¼ÒÈË)£»3ÒÑÈ·ÈÏ£»-1ÎÞÖ¤¼þºÅÓÃ»§', \ 
-`create_user` FIXED_STRING(32) NOT NULL COMMENT '´´½¨ÓÃ»§id', \ 
-`create_time` DATETIME NOT NULL COMMENT '´´½¨Ê±¼ä', \ 
-`create_app` FIXED_STRING(32) DEFAULT NULL COMMENT '´´½¨appId', \ 
-`modify_user` FIXED_STRING(32) NOT NULL COMMENT '¸üÐÂÓÃ»§id', \ 
-`modify_time` DATETIME NOT NULL COMMENT 'ÐÞ¸ÄÊ±¼ä', \ 
-`modify_app` FIXED_STRING(32) DEFAULT NULL COMMENT '¸üÐÂappId', \ 
-`del_stat` INT16 NOT NULL COMMENT '0£ºÕý³£ 1£ºÉ¾³ý', \ 
-`version_no` INT32 NOT NULL COMMENT '°æ±¾ºÅ') \ 
-COMMENT='ÓÃ»§±í'; 
+CREATE TAG IF NOT EXISTS user(`id` INT32 NOT NULL COMMENT 'ä¸»é”®', \ 
+`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ç”¨æˆ·ID', \ 
+`auth_flag` INT32 NOT NULL COMMENT 'æ˜¯å¦æ³¨å†Œè®¤è¯ 1è®¤è¯ï¼›0éžè®¤è¯', \ 
+`wx_open_id` FIXED_STRING(32) DEFAULT NULL COMMENT 'å¾®ä¿¡openID', \ 
+`name` FIXED_STRING(100) NOT NULL COMMENT 'å§“å', \ 
+`sex` INT32 DEFAULT NULL COMMENT 'æ€§åˆ« 0ç”·ï¼›1å¥³', \ 
+`birthday` DATE DEFAULT NULL COMMENT 'ç”Ÿæ—¥', \ 
+`in_Beijing` INT32 DEFAULT NULL COMMENT 'æ˜¯å¦åœ¨åŒ—äº¬ 1æ˜¯ 0å¦', \ 
+`status_type` INT32 DEFAULT NULL COMMENT 'ä¿¡æ¯çŠ¶æ€ 0å¾…å¡«æŠ¥ï¼›1å¾…ç¡®è®¤(ç®¡ç†å‘˜)ï¼›2å¾…ç¡®è®¤(å®¶äºº)ï¼›3å·²ç¡®è®¤ï¼›-1æ— è¯ä»¶å·ç”¨æˆ·', \ 
+`create_user` FIXED_STRING(32) NOT NULL COMMENT 'åˆ›å»ºç”¨æˆ·id', \ 
+`create_time` DATETIME NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´', \ 
+`create_app` FIXED_STRING(32) DEFAULT NULL COMMENT 'åˆ›å»ºappId', \ 
+`modify_user` FIXED_STRING(32) NOT NULL COMMENT 'æ›´æ–°ç”¨æˆ·id', \ 
+`modify_time` DATETIME NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´', \ 
+`modify_app` FIXED_STRING(32) DEFAULT NULL COMMENT 'æ›´æ–°appId', \ 
+`del_stat` INT16 NOT NULL COMMENT '0ï¼šæ­£å¸¸ 1ï¼šåˆ é™¤', \ 
+`version_no` INT32 NOT NULL COMMENT 'ç‰ˆæœ¬å·') \ 
+COMMENT='ç”¨æˆ·è¡¨'; 
 CREATE TAG INDEX IF NOT EXISTS user_uniq_idx_user_id_user_id ON user(`uniq_idx_user_id`, `user_id`);
 CREATE TAG INDEX IF NOT EXISTS user_uniq_open_id_wx_open_id ON user(`uniq_open_id`, `wx_open_id`);
 
 
-CREATE TAG IF NOT EXISTS region(`id` INT32 NOT NULL COMMENT 'Ö÷¼ü', \ 
+CREATE TAG IF NOT EXISTS region(`id` INT32 NOT NULL COMMENT 'ä¸»é”®', \ 
 `region_id` FIXED_STRING(64) DEFAULT NULL COMMENT '', \ 
 `parent_region_id` FIXED_STRING(64) DEFAULT NULL COMMENT '', \ 
-`region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'µØÖ·±àÂë', \ 
-`parent_region_code` FIXED_STRING(64) DEFAULT NULL COMMENT '¸¸µØÖ·±àÂë', \ 
-`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT 'µØÖ·Ãû³Æ', \ 
-`region_type` INT16 DEFAULT NULL COMMENT 'µØÖ·ÀàÐÍ£¬1-Ê¡ 2-ÊÐ 3-ÇøÏØ 4-ÏçÕò/½ÖµÀ 5-ÉçÇø/´åÍÍ  6-×¡Õ¬Ð¡Çø 7-Â¥¶°  8-µ¥Ôª  9-×¡»§', \ 
-`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT 'µØÖ·È«²ã´ÎÃû³Æ', \ 
-`leaf` INT16 DEFAULT '0' COMMENT 'ÊÇ·ñÒ¶×Ó½Úµã 0·ñ 1ÊÇ', \ 
-`create_time` TIMESTAMP NOT NULL COMMENT '´´½¨Ê±¼ä', \ 
-`modify_time` TIMESTAMP NOT NULL COMMENT 'ÐÞ¸ÄÊ±¼ä', \ 
-`del_stat` INT16 DEFAULT '0' COMMENT '0£ºÕý³£ 1£ºÉ¾³ý', \ 
+`region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'åœ°å€ç¼–ç ', \ 
+`parent_region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'çˆ¶åœ°å€ç¼–ç ', \ 
+`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT 'åœ°å€åç§°', \ 
+`region_type` INT16 DEFAULT NULL COMMENT 'åœ°å€ç±»åž‹ï¼Œ1-çœ 2-å¸‚ 3-åŒºåŽ¿ 4-ä¹¡é•‡/è¡—é“ 5-ç¤¾åŒº/æ‘å±¯  6-ä½å®…å°åŒº 7-æ¥¼æ ‹  8-å•å…ƒ  9-ä½æˆ·', \ 
+`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT 'åœ°å€å…¨å±‚æ¬¡åç§°', \ 
+`leaf` INT16 DEFAULT '0' COMMENT 'æ˜¯å¦å¶å­èŠ‚ç‚¹ 0å¦ 1æ˜¯', \ 
+`create_time` TIMESTAMP NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´', \ 
+`modify_time` TIMESTAMP NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´', \ 
+`del_stat` INT16 DEFAULT '0' COMMENT '0ï¼šæ­£å¸¸ 1ï¼šåˆ é™¤', \ 
 `version_no` INT32 DEFAULT NULL COMMENT '') \ 
-COMMENT='ÐÐÕþÇøÓò±í'; 
+COMMENT='è¡Œæ”¿åŒºåŸŸè¡¨'; 
 CREATE TAG INDEX IF NOT EXISTS region_t_region_address_id_IDX_region_id ON region(`t_region_address_id_IDX`, `region_id`);
 CREATE TAG INDEX IF NOT EXISTS region_region_code_del_stat ON region(`region_code`, `del_stat`);
 CREATE TAG INDEX IF NOT EXISTS region_parent_region_code ON region(`parent_region_code`);
@@ -44,49 +44,49 @@ CREATE TAG INDEX IF NOT EXISTS region_parent_region_id_del_stat ON region(`paren
 CREATE TAG INDEX IF NOT EXISTS region_region_id ON region(`region_id`);
 
 
-CREATE EDGE IF NOT EXISTS user_region_relation(`id` INT32 NOT NULL COMMENT 'Ö÷¼ü', \ 
-`user_region_id` FIXED_STRING(64) DEFAULT NULL COMMENT 'Î¨Ò»id', \ 
-`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ÓÃ»§ID', \ 
-`region_id` FIXED_STRING(32) DEFAULT NULL COMMENT 'µØÖ·±àÂë', \ 
-`region_used_type` INT32 DEFAULT NULL COMMENT '³£×¤µØÖ·ÀàÐÍ 1¼ÒÍ¥¾Ó×¡; 2¹¤×÷³£×¤; 3ÍâÅÉ³ö²î; 4Ñ§Ð£½øÐÞ; 5¶È¼ÙÁÆÑø; 6¸ôÀë¹Ü¿Ø£»7ÆäËû', \ 
-`start_time` DATE DEFAULT NULL COMMENT '×¤Áô¿ªÊ¼Ê±¼ä', \ 
-`end_time` DATE DEFAULT NULL COMMENT '×¤Áô½áÊøÊ±¼ä', \ 
-`duration_type` INT32 DEFAULT NULL COMMENT '×¤ÁôÖÜÆÚ 1³ÖÐø×¤Áô£»2¹¤×÷ÈÕ×¤Áô£»3ÖÜÄ©×¤Áô£»4Ã¿ÖÜ1-3Ìì£»5Ã¿ÖÜ4-6Ìì', \ 
-`duration_cost_type` INT32 DEFAULT NULL COMMENT '×¤Áô·ÑÓÃ³Ðµ£·½Ê½ 1×ÔÓÐ¹ºÂò£»2¸öÈË×âÁÞ£»3µ¥Î»³Ðµ££»4Õþ¸®°²ÖÃ£»5°²Ôù¼Ì³Ð', \ 
-`status_type` INT32 DEFAULT NULL COMMENT 'ÐÅÏ¢×´Ì¬ 0´ýÌîÐ´£»1´ýÈ·ÈÏ(¹ÜÀíÔ±)£»2´ýÈ·ÈÏ(¼ÒÈË)£»3ÒÑÈ·ÈÏ', \ 
-`region_context` STRING DEFAULT NULL COMMENT 'µØÖ·ÃèÊö', \ 
-`building` FIXED_STRING(64) DEFAULT NULL COMMENT 'Â¥/¶°', \ 
-`unit` FIXED_STRING(32) DEFAULT NULL COMMENT 'µ¥Ôª', \ 
-`room` FIXED_STRING(32) DEFAULT NULL COMMENT 'ÃÅÅÆºÅ', \ 
-`create_user` FIXED_STRING(32) DEFAULT NULL COMMENT '´´½¨ÓÃ»§id', \ 
-`create_app` FIXED_STRING(32) DEFAULT NULL COMMENT '´´½¨app', \ 
-`create_time` DATETIME NOT NULL COMMENT '´´½¨Ê±¼ä', \ 
-`modify_user` FIXED_STRING(32) DEFAULT NULL COMMENT '¸üÐÂÓÃ»§id', \ 
-`modify_app` FIXED_STRING(32) DEFAULT NULL COMMENT '¸üÐÂapp', \ 
-`modify_time` DATETIME NOT NULL COMMENT 'ÐÞ¸ÄÊ±¼ä', \ 
-`del_stat` INT16 NOT NULL COMMENT '0£ºÕý³£ 1£ºÉ¾³ý', \ 
-`version_no` INT32 NOT NULL COMMENT '°æ±¾ºÅ', \ 
+CREATE EDGE IF NOT EXISTS user_region_relation(`id` INT32 NOT NULL COMMENT 'ä¸»é”®', \ 
+`user_region_id` FIXED_STRING(64) DEFAULT NULL COMMENT 'å”¯ä¸€id', \ 
+`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ç”¨æˆ·ID', \ 
+`region_id` FIXED_STRING(32) DEFAULT NULL COMMENT 'åœ°å€ç¼–ç ', \ 
+`region_used_type` INT32 DEFAULT NULL COMMENT 'å¸¸é©»åœ°å€ç±»åž‹ 1å®¶åº­å±…ä½; 2å·¥ä½œå¸¸é©»; 3å¤–æ´¾å‡ºå·®; 4å­¦æ ¡è¿›ä¿®; 5åº¦å‡ç–—å…»; 6éš”ç¦»ç®¡æŽ§ï¼›7å…¶ä»–', \ 
+`start_time` DATE DEFAULT NULL COMMENT 'é©»ç•™å¼€å§‹æ—¶é—´', \ 
+`end_time` DATE DEFAULT NULL COMMENT 'é©»ç•™ç»“æŸæ—¶é—´', \ 
+`duration_type` INT32 DEFAULT NULL COMMENT 'é©»ç•™å‘¨æœŸ 1æŒç»­é©»ç•™ï¼›2å·¥ä½œæ—¥é©»ç•™ï¼›3å‘¨æœ«é©»ç•™ï¼›4æ¯å‘¨1-3å¤©ï¼›5æ¯å‘¨4-6å¤©', \ 
+`duration_cost_type` INT32 DEFAULT NULL COMMENT 'é©»ç•™è´¹ç”¨æ‰¿æ‹…æ–¹å¼ 1è‡ªæœ‰è´­ä¹°ï¼›2ä¸ªäººç§Ÿèµï¼›3å•ä½æ‰¿æ‹…ï¼›4æ”¿åºœå®‰ç½®ï¼›5å®‰èµ ç»§æ‰¿', \ 
+`status_type` INT32 DEFAULT NULL COMMENT 'ä¿¡æ¯çŠ¶æ€ 0å¾…å¡«å†™ï¼›1å¾…ç¡®è®¤(ç®¡ç†å‘˜)ï¼›2å¾…ç¡®è®¤(å®¶äºº)ï¼›3å·²ç¡®è®¤', \ 
+`region_context` STRING DEFAULT NULL COMMENT 'åœ°å€æè¿°', \ 
+`building` FIXED_STRING(64) DEFAULT NULL COMMENT 'æ¥¼/æ ‹', \ 
+`unit` FIXED_STRING(32) DEFAULT NULL COMMENT 'å•å…ƒ', \ 
+`room` FIXED_STRING(32) DEFAULT NULL COMMENT 'é—¨ç‰Œå·', \ 
+`create_user` FIXED_STRING(32) DEFAULT NULL COMMENT 'åˆ›å»ºç”¨æˆ·id', \ 
+`create_app` FIXED_STRING(32) DEFAULT NULL COMMENT 'åˆ›å»ºapp', \ 
+`create_time` DATETIME NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´', \ 
+`modify_user` FIXED_STRING(32) DEFAULT NULL COMMENT 'æ›´æ–°ç”¨æˆ·id', \ 
+`modify_app` FIXED_STRING(32) DEFAULT NULL COMMENT 'æ›´æ–°app', \ 
+`modify_time` DATETIME NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´', \ 
+`del_stat` INT16 NOT NULL COMMENT '0ï¼šæ­£å¸¸ 1ï¼šåˆ é™¤', \ 
+`version_no` INT32 NOT NULL COMMENT 'ç‰ˆæœ¬å·', \ 
 `residence_free_text` FIXED_STRING(256) DEFAULT NULL COMMENT '') \ 
-COMMENT='³£×¤µØÖ·±í'; 
+COMMENT='å¸¸é©»åœ°å€è¡¨'; 
 CREATE EDGE INDEX IF NOT EXISTS user_region_relation_id ON user_region_relation(`id`);
 CREATE EDGE INDEX IF NOT EXISTS user_region_relation_user_region_id_UNIQUE_user_region_id ON user_region_relation(`user_region_id_UNIQUE`, `user_region_id`);
 CREATE EDGE INDEX IF NOT EXISTS user_region_relation_region_id_user_id ON user_region_relation(`region_id`, `user_id`);
 
 
-CREATE EDGE IF NOT EXISTS region_region_relation(`id` INT32 NOT NULL COMMENT 'Ö÷¼ü', \ 
+CREATE EDGE IF NOT EXISTS region_region_relation(`id` INT32 NOT NULL COMMENT 'ä¸»é”®', \ 
 `region_id` FIXED_STRING(64) DEFAULT NULL COMMENT '', \ 
 `parent_region_id` FIXED_STRING(64) DEFAULT NULL COMMENT '', \ 
-`region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'µØÖ·±àÂë', \ 
-`parent_region_code` FIXED_STRING(64) DEFAULT NULL COMMENT '¸¸µØÖ·±àÂë', \ 
-`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT 'µØÖ·Ãû³Æ', \ 
-`region_type` INT16 DEFAULT NULL COMMENT 'µØÖ·ÀàÐÍ£¬1-Ê¡ 2-ÊÐ 3-ÇøÏØ 4-ÏçÕò/½ÖµÀ 5-ÉçÇø/´åÍÍ  6-×¡Õ¬Ð¡Çø 7-Â¥¶°  8-µ¥Ôª  9-×¡»§', \ 
-`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT 'µØÖ·È«²ã´ÎÃû³Æ', \ 
-`leaf` INT16 DEFAULT '0' COMMENT 'ÊÇ·ñÒ¶×Ó½Úµã 0·ñ 1ÊÇ', \ 
-`create_time` TIMESTAMP NOT NULL COMMENT '´´½¨Ê±¼ä', \ 
-`modify_time` TIMESTAMP NOT NULL COMMENT 'ÐÞ¸ÄÊ±¼ä', \ 
-`del_stat` INT16 DEFAULT '0' COMMENT '0£ºÕý³£ 1£ºÉ¾³ý', \ 
+`region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'åœ°å€ç¼–ç ', \ 
+`parent_region_code` FIXED_STRING(64) DEFAULT NULL COMMENT 'çˆ¶åœ°å€ç¼–ç ', \ 
+`region_name` FIXED_STRING(320) DEFAULT NULL COMMENT 'åœ°å€åç§°', \ 
+`region_type` INT16 DEFAULT NULL COMMENT 'åœ°å€ç±»åž‹ï¼Œ1-çœ 2-å¸‚ 3-åŒºåŽ¿ 4-ä¹¡é•‡/è¡—é“ 5-ç¤¾åŒº/æ‘å±¯  6-ä½å®…å°åŒº 7-æ¥¼æ ‹  8-å•å…ƒ  9-ä½æˆ·', \ 
+`full_address` FIXED_STRING(2000) DEFAULT NULL COMMENT 'åœ°å€å…¨å±‚æ¬¡åç§°', \ 
+`leaf` INT16 DEFAULT '0' COMMENT 'æ˜¯å¦å¶å­èŠ‚ç‚¹ 0å¦ 1æ˜¯', \ 
+`create_time` TIMESTAMP NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´', \ 
+`modify_time` TIMESTAMP NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´', \ 
+`del_stat` INT16 DEFAULT '0' COMMENT '0ï¼šæ­£å¸¸ 1ï¼šåˆ é™¤', \ 
 `version_no` INT32 DEFAULT NULL COMMENT '') \ 
-COMMENT='ÐÐÕþÇøÓò±í'; 
+COMMENT='è¡Œæ”¿åŒºåŸŸè¡¨'; 
 CREATE EDGE INDEX IF NOT EXISTS region_region_relation_id ON region_region_relation(`id`);
 CREATE EDGE INDEX IF NOT EXISTS region_region_relation_t_region_address_id_IDX_region_id ON region_region_relation(`t_region_address_id_IDX`, `region_id`);
 CREATE EDGE INDEX IF NOT EXISTS region_region_relation_region_code_del_stat ON region_region_relation(`region_code`, `del_stat`);
@@ -98,22 +98,22 @@ CREATE EDGE INDEX IF NOT EXISTS region_region_relation_parent_region_id_del_stat
 CREATE EDGE INDEX IF NOT EXISTS region_region_relation_region_id ON region_region_relation(`region_id`);
 
 
-CREATE EDGE IF NOT EXISTS user_user_relation(`id` INT32 NOT NULL COMMENT 'Ö÷¼ü', \ 
-`relation_id` FIXED_STRING(32) NOT NULL COMMENT '¹ØÏµid', \ 
-`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ÓÃ»§ID', \ 
-`related_user_id` FIXED_STRING(32) NOT NULL COMMENT '¹ØÁªÓÃ»§ID', \ 
-`relationship1` INT32 NOT NULL COMMENT 'Ò»¼¶¹ØÏµ 1ÑªÔµ¹ØÏµÇ×Êô¼°ÆäÅäÅ¼; 2»éÒö¹ØÏµÇ×Êô; 3·¨ÂÉÄâÖÆ¹ØÏµ', \ 
-`relationship2` INT32 NOT NULL COMMENT '¶þ¼¶¹ØÏµÀàÐÍ£¬°´ÕÕÒ»¼¶½á¹¹È·¶¨£¬½á¹¹¹ýÓÚ¸´ÔÓ£¬²»ÁÐ³ö', \ 
-`start_time` DATETIME DEFAULT NULL COMMENT '¿ªÊ¼Ê±¼ä', \ 
-`end_time` DATETIME DEFAULT NULL COMMENT '½áÊøÊ±¼ä', \ 
-`status_type` INT32 NOT NULL COMMENT '×´Ì¬Àà±ð 0´ýÌîÐ´£»1´ýÈ·ÈÏ(¹ÜÀíÔ±)£»2´ýÈ·ÈÏ(¼ÒÈË)£»3ÒÑÈ·ÈÏ', \ 
-`roommate_status` INT16 NOT NULL COMMENT 'ÊÇ·ñÎªµ±Ç°Í¬×¡ÈË 1ÊÇ 0·ñ', \ 
-`create_user` FIXED_STRING(32) NOT NULL COMMENT '´´½¨ÓÃ»§id', \ 
-`create_time` DATETIME NOT NULL COMMENT '´´½¨Ê±¼ä', \ 
-`modify_user` FIXED_STRING(32) NOT NULL COMMENT '¸üÐÂÓÃ»§id', \ 
-`modify_time` DATETIME NOT NULL COMMENT 'ÐÞ¸ÄÊ±¼ä', \ 
-`del_stat` INT16 NOT NULL COMMENT '0£ºÕý³£ 1£ºÉ¾³ý', \ 
-`version_no` INT32 NOT NULL COMMENT '°æ±¾ºÅ') \ 
-COMMENT='ÓÃ»§¹ØÏµ±í'; 
+CREATE EDGE IF NOT EXISTS user_user_relation(`id` INT32 NOT NULL COMMENT 'ä¸»é”®', \ 
+`relation_id` FIXED_STRING(32) NOT NULL COMMENT 'å…³ç³»id', \ 
+`user_id` FIXED_STRING(32) NOT NULL COMMENT 'ç”¨æˆ·ID', \ 
+`related_user_id` FIXED_STRING(32) NOT NULL COMMENT 'å…³è”ç”¨æˆ·ID', \ 
+`relationship1` INT32 NOT NULL COMMENT 'ä¸€çº§å…³ç³» 1è¡€ç¼˜å…³ç³»äº²å±žåŠå…¶é…å¶; 2å©šå§»å…³ç³»äº²å±ž; 3æ³•å¾‹æ‹Ÿåˆ¶å…³ç³»', \ 
+`relationship2` INT32 NOT NULL COMMENT 'äºŒçº§å…³ç³»ç±»åž‹ï¼ŒæŒ‰ç…§ä¸€çº§ç»“æž„ç¡®å®šï¼Œç»“æž„è¿‡äºŽå¤æ‚ï¼Œä¸åˆ—å‡º', \ 
+`start_time` DATETIME DEFAULT NULL COMMENT 'å¼€å§‹æ—¶é—´', \ 
+`end_time` DATETIME DEFAULT NULL COMMENT 'ç»“æŸæ—¶é—´', \ 
+`status_type` INT32 NOT NULL COMMENT 'çŠ¶æ€ç±»åˆ« 0å¾…å¡«å†™ï¼›1å¾…ç¡®è®¤(ç®¡ç†å‘˜)ï¼›2å¾…ç¡®è®¤(å®¶äºº)ï¼›3å·²ç¡®è®¤', \ 
+`roommate_status` INT16 NOT NULL COMMENT 'æ˜¯å¦ä¸ºå½“å‰åŒä½äºº 1æ˜¯ 0å¦', \ 
+`create_user` FIXED_STRING(32) NOT NULL COMMENT 'åˆ›å»ºç”¨æˆ·id', \ 
+`create_time` DATETIME NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´', \ 
+`modify_user` FIXED_STRING(32) NOT NULL COMMENT 'æ›´æ–°ç”¨æˆ·id', \ 
+`modify_time` DATETIME NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´', \ 
+`del_stat` INT16 NOT NULL COMMENT '0ï¼šæ­£å¸¸ 1ï¼šåˆ é™¤', \ 
+`version_no` INT32 NOT NULL COMMENT 'ç‰ˆæœ¬å·') \ 
+COMMENT='ç”¨æˆ·å…³ç³»è¡¨'; 
 CREATE EDGE INDEX IF NOT EXISTS user_user_relation_id ON user_user_relation(`id`);
 CREATE EDGE INDEX IF NOT EXISTS user_user_relation_idx_relation_id_relation_id ON user_user_relation(`idx_relation_id`, `relation_id`);
