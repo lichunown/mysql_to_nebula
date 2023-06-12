@@ -2,3 +2,4 @@ nebula3-python
 mysql
 mysql-connector-python
 sqlparse
+deprecated

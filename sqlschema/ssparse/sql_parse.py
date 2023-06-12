@@ -5,7 +5,7 @@ import sqlparse
 import sqlparse.sql as parse_sql
 
 from sqlschema.utils.util import IterWrapper, clean_name
-from sqlschema.sql_type import auto_ftype, NumberFieldType
+from sqlschema.ssparse.sql_type import auto_ftype, NumberFieldType
 
 
 class Column(object):
@@ -187,6 +187,36 @@ class CreateSql(object):
         self.columns = [Column.auto_column(item) for item in
                         self.extract_definitions(par)]
 
+    def tablelike_fields(self):
+        from sqlschema.fields.tablelike.field import Field as NewField
+        from sqlschema.fields.tablelike.filedtype import FieldType as NewFieldType
+
+        for col in self.columns:
+            if col.type == 'FieldColumn':
+                yield NewField(clean_name(col.name),
+                               NewFieldType.from_string(col.ftype.ftype),
+                               not col.is_not_null,
+                               col.default,
+                               clean_name(col.comment(default='')))
+
+    def tablelike_indexes(self, fields):
+        from sqlschema.fields.tablelike.index import Index as NewIndex
+
+        def _find_field(name):
+            for field in fields:
+                if field.name == name:
+                    return field
+
+        for col in self.columns:
+            if col.type == 'IndexColumn':
+                yield NewIndex(clean_name(col.name),
+                               [_find_field(clean_name(item)) for item in col.index_fields],
+                               False)
+            elif col.type == 'PrimaryKeyColumn':
+                yield NewIndex(clean_name(col.name),
+                               [_find_field(clean_name(col.name))],
+                               True)
+
     @property
     def field_names(self):
         return [clean_name(c.name) for c in self.columns if c.type == 'FieldColumn']
@@ -276,6 +306,12 @@ class CreateSql(object):
 
 
 class CreateSqlList(object):
+
+    @classmethod
+    def from_file(cls, path, encoding='utf8'):
+        with open(path, 'r', encoding=encoding) as f:
+            return cls(''.join(f.readlines()))
+
     def __init__(self, strings):
         self.id_name_map = []
         self.data = {}
@@ -284,6 +320,16 @@ class CreateSqlList(object):
             _cs = CreateSql(item)
             self.data[_cs.name] = _cs
             self.id_name_map.append(_cs.name)
+
+    def to_tablelike_tables(self):
+        from sqlschema.fields.tablelike.table import TableInfo, TableList
+        tables = []
+        for table_name, _cs in self.data.items():
+            fields = list(_cs.tablelike_fields())
+            indexes = list(_cs.tablelike_indexes(fields))
+            tables.append(TableInfo(clean_name(table_name),
+                                    fields, indexes, []))
+        return TableList(tables)
 
     def __contains__(self, inputs):
         return clean_name(inputs) in [clean_name(item) for item in self.data.keys()]
@@ -307,5 +353,5 @@ class CreateSqlList(object):
 
 
 if __name__ == '__main__':
-    sqls = ''.join(open('../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
+    sqls = ''.join(open('../../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
     create_sql_list = CreateSqlList(sqls)

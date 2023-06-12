@@ -30,7 +30,7 @@ class Field:
     for ATTR, the value is the name of `TAG_ID`,
     for TAG_ID, the value is the tag name,
     """
-    graph_belong_to: List[str] = None
+    graph_belong_to: List[str] = dataclasses.field(default_factory=list)
 
     @classmethod
     def from_origin_column_info(cls, col: TableColumnOriginType):

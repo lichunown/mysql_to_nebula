@@ -1,5 +1,5 @@
 from sqlschema.utils.util import clean_name
-from sqlschema.sql_parse import CreateSql
+from sqlschema.ssparse.sql_parse import CreateSql
 
 
 def _create_field_column_sql(column):
@@ -77,7 +77,7 @@ class FlinkGenerator(object):
 
 if __name__ == '__main__':
     sqls = ''.join(open('../../examples/mysql_schema.sql', 'r', encoding='utf8').readlines())
-    from sqlschema.sql_parse import CreateSqlList
+    from sqlschema.ssparse.sql_parse import CreateSqlList
     create_sql_list = CreateSqlList(sqls)
     flink_generator = FlinkGenerator(create_sql_list[0])
 

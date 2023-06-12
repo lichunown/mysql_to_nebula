@@ -83,7 +83,7 @@ class TableInfo:
 
     def set_tag(self, tag_names: Union[str, List[str]],
                 tag_id: str,
-                tag_attrs: Union[List[str], str] = 'remain_all'):
+                tag_attrs: Union[List[str], str] = None):
 
         # set the id
         _field = self.find_field(tag_id)
@@ -91,7 +91,7 @@ class TableInfo:
         _field.add_graph_belong_to(tag_names)
 
         # set the attrs
-        if tag_attrs == 'remain_all':
+        if tag_attrs is None:
             _fields = self._remained_fields([tag_id])
         else:
             if isinstance(tag_attrs, str):
@@ -106,10 +106,10 @@ class TableInfo:
 
     def set_edge(self, edge_type: str,
                  edge_src: str, edge_dst: str,
-                 edge_attrs: Union[List[str], str] = 'remain_all',
+                 edge_attrs: Union[List[str], str] = None,
                  edge_indexes: Dict[str, List[str]] = None):
 
-        if edge_attrs == 'remain_all':
+        if edge_attrs is None:
             _fields = self._remained_fields([edge_src, edge_dst])
         else:
             if isinstance(edge_attrs, str):
@@ -138,3 +138,26 @@ class TableInfo:
     def __repr__(self):
         tag_num = sum([1 for item in self.fields if item.graph_anno_type != GraphAnnotationType.NULL])
         return f'{self.name}:  field_num={len(self.fields)}  tag_num={tag_num}  edge_num={len(self.edge_infos)}'
+
+
+@dataclasses.dataclass
+class TableList:
+    tables: List[TableInfo]
+
+    def get_table(self, table_name, default=None):
+        for table in self.tables:
+            if table.name == table_name:
+                return table
+        return default
+
+    def to_graphs(self):
+        graphs = []
+        for table in self.tables:
+            graphs.append(table.to_graph())
+
+        from sqlschema.fields.graphlike.graph import GraphList
+        return GraphList(graphs)
+
+    def to_xml(self):
+        pass
+        # TODO

@@ -1,6 +1,8 @@
 from typing import List
 
-from sqlschema.sql_parse import CreateSqlList
+from deprecated.sphinx import deprecated
+
+from sqlschema.ssparse.sql_parse import CreateSqlList
 from sqlschema.generators import FlinkGenerator, NebulaGenerator
 from sqlschema.utils.format import Format
 
@@ -23,6 +25,7 @@ class EdgeInfo:
     nebula_edge_name: str
 
 
+@deprecated
 class MainGenerator(object):
 
     @classmethod

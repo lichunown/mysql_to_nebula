@@ -1,6 +1,6 @@
 import dataclasses
 import warnings
-from typing import List
+from typing import List, Union
 
 from sqlschema.fields.graphlike.edge import EdgeType
 from sqlschema.fields.graphlike.enums import ModifyType
@@ -77,3 +77,43 @@ class Graph:
         tag_drop = [tag.code_drop() for tag in self.tags]
         edge_drop = [edge.code_drop() for edge in self.edge_types]
         return Codes(''.join(tag_drop + edge_drop))
+
+
+@dataclasses.dataclass
+class GraphList:
+    graphs: List[Graph]
+
+    def extend(self, graphs: Union[List[Graph], "GraphList"]):
+        if isinstance(graphs, GraphList):
+            graphs = graphs.graphs
+        self.graphs.extend(graphs)
+        return self
+
+    def __iadd__(self, other):
+        return self.extend(other)
+
+    def __add__(self, other):
+        if isinstance(other, GraphList):
+            other = other.graphs
+        return GraphList(self.graphs.copy() + other)
+
+    def _code_apply(self, func_name, *args, **kwargs):
+        codes = [getattr(g, func_name)(*args, **kwargs) for g in self.graphs]
+        codes = '\n\n\n'.join(codes)
+        return Codes(codes)
+
+    def code_new_space(self, space_name, vid_type=None,
+                       partition_num=10, replica_factor=1, modify_mode: ModifyType = None):
+        pass
+        #TODO
+
+    def code_create_graph(self, include_id_field=True,
+                          modify_mode: ModifyType = None,
+                          with_backslash=True,
+                          with_indexes=True):
+        return self._code_apply('code_create_graph', include_id_field, modify_mode, with_backslash, with_indexes)
+
+    def code_drop(self):
+        return self._code_apply('code_drop')
+
+

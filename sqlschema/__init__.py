@@ -1,1 +1,1 @@
-from .main_generator import MainGenerator
+from sqlschema.ssparse.main_generator import MainGenerator

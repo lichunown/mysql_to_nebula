@@ -1,4 +1,5 @@
 from sqlschema.connectors import MysqlConnector, NebulaConnector
+from sqlschema.fields.tablelike.table import TableList
 
 
 conn = MysqlConnector(
@@ -31,11 +32,12 @@ codes.execute_on_nebula(session)
 
 session = NebulaConnector([('127.0.0.1', 9669)], 'root', 'nebula').get_session()
 session.execute('use jmt3;')
-table = conn.use('koala').table('t_region')
-table.set_tag('region', 'region_id', 'remain_all') \
+t_region = conn.use('koala').table('t_region')
+t_region.set_tag('region', 'region_id', 'remain_all') \
      .set_edge('parent', 'region_id', 'parent_region_id',
                'remain_all',
-               edge_indexes={'id': ['region_id']})\
-     .to_graph()\
-     .code_create_graph(with_backslash=False, modify_mode='ADD_IF_NOT_EXIST')\
-     .execute_on_nebula(session)
+               edge_indexes={'id': ['region_id']})
+tables = TableList([t_region])
+tables.to_graphs()\
+      .code_create_graph(with_backslash=False, modify_mode='ADD_IF_NOT_EXIST')\
+      .execute_on_nebula(session)

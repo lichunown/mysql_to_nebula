@@ -18,6 +18,8 @@ class IterWrapper(object):
 
 
 def clean_name(name):
+    if len(name) < 1:
+        return name
     if name[0] in ['`', '"', "'"]:
         return name[1: -1]
     return name
