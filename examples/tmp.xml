@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<graphMapper table_name="t_region">
+		<columns>
+			<column name="id" type="int(10)" is_nullable="false" default="" comment="主键" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="region_id" type="varchar(64)" is_nullable="true" default="" comment="" graph_anno_type="TAG_ID" graph_belong_to="region"/>
+			<column name="parent_region_id" type="varchar(64)" is_nullable="true" default="" comment="" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="region_code" type="varchar(64)" is_nullable="true" default="" comment="地址编码" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="parent_region_code" type="varchar(64)" is_nullable="true" default="" comment="父地址编码" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="region_name" type="varchar(320)" is_nullable="true" default="" comment="地址名称" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="region_type" type="tinyint(3)" is_nullable="true" default="" comment="地址类型，1-省 2-市 3-区县 4-乡镇/街道 5-社区/村屯  6-住宅小区 7-楼栋  8-单元  9-住户" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="full_address" type="varchar(2000)" is_nullable="true" default="" comment="地址全层次名称" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="leaf" type="tinyint(3)" is_nullable="true" default="" comment="是否叶子节点 0否 1是" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="create_time" type="timestamp" is_nullable="false" default="CURRENT_TIMESTAMP" comment="创建时间" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="modify_time" type="timestamp" is_nullable="false" default="CURRENT_TIMESTAMP" comment="修改时间" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="del_stat" type="tinyint(3)" is_nullable="true" default="" comment="0：正常 1：删除" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+			<column name="version_no" type="int(10)" is_nullable="true" default="" comment="" graph_anno_type="ATTR" graph_belong_to="region_id"/>
+		</columns>
+		<edges>
+			<edge type="parent" src="region_id" dst="parent_region_id" edge_attrs="id|region_code|parent_region_code|region_name|region_type|full_address|leaf|create_time|modify_time|del_stat|version_no">
+				<index>
+					<edgeIndex name="id" edge_type="parent" fields="region_id"/>
+				</index>
+			</edge>
+		</edges>
+		<indexes>
+			<index name="parent_region_address_id" is_primary_key="false" fields="parent_region_id|del_stat"/>
+			<index name="t_region_address_area_code_IDX" is_primary_key="false" fields="region_code|del_stat"/>
+			<index name="t_region_address_id_IDX" is_primary_key="false" fields="region_id"/>
+			<index name="PRIMARY" is_primary_key="true" fields="id"/>
+			<index name="idx_modify_time" is_primary_key="false" fields="modify_time"/>
+			<index name="idx_region_id" is_primary_key="false" fields="region_id"/>
+			<index name="t_region_address_parent_area_code_IDX" is_primary_key="false" fields="parent_region_code"/>
+			<index name="full_address" is_primary_key="false" fields="full_address"/>
+			<index name="region_type" is_primary_key="false" fields="region_type"/>
+		</indexes>
+	</graphMapper>

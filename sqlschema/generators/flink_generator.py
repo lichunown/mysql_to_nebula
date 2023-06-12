@@ -6,7 +6,7 @@ def _create_field_column_sql(column):
     if column.is_not_null:
         return f'\t{column.name} {column.ftype.flink} NOT NULL COMMENT {column.comment()}'
     else:
-        return f'\t{column.name} {column.ftype.flink} DEFAULT {column.default} COMMENT {column.comment()}'
+        return f'\t{column.name} {column.ftype.flink} NULL COMMENT {column.comment()}'
 
 
 class FlinkGenerator(object):

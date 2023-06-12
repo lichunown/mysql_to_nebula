@@ -1,3 +1,5 @@
+import dataclasses
+
 import sqlparse
 import os
 import sqlparse.sql as parse_sql
@@ -36,4 +38,3 @@ parsed_sqls = sqlparse.parse(sqls)
 parsed_sql = parsed_sqls[1]
 _, par = parsed_sql.token_next_by(parse_sql.Parenthesis)
 columns = extract_definitions(par)
-
